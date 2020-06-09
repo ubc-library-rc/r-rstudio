@@ -9,5 +9,5 @@ Do you want to learn about R but don't know where to start? This workshop is for
 
 To participate fully you will need to install the latest versions of R and RStudio on your computer before the workshop:
 
-- Install R from https://www.r-project.org/
-- Install RStudio from https://rstudio.com/products/rstudio/download/#download
+- Install R from [https://www.r-project.org/](https://www.r-project.org/)
+- Install RStudio from [https://rstudio.com/products/rstudio/download/#download](https://rstudio.com/products/rstudio/download/#download)
