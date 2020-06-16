@@ -3,9 +3,11 @@ layout: default
 title: Overview
 nav_order: 1
 ---
-# Overview
+# Introduction to R and RStudio
 
-Do you want to learn about R but don't know where to start? This workshop is for you! **R** is a popular free software program with many applications in both the humanities and sciences. **RStudio** is a set of integrated tools designed to help you be more productive with R. This introductory level workshop introduces participants to R concepts, packages, and basic syntax using the RStudio environment. 
+Do you want to learn about R but don't know where to start? This workshop is for you! **R** is a popular free software program with many applications in both the humanities and sciences. **RStudio** is a set of integrated tools designed to help you be more productive with R. This introductory level workshop introduces participants to R concepts, packages, and basic syntax using the RStudio environment.
+
+[Click for workshop slides](slides/intro-r-rstudio-slides.html){:target="_blank"}
 
 ## Pre-workshop setup
 To participate fully you will need to install the latest versions of R and RStudio on your computer ahead of time.
