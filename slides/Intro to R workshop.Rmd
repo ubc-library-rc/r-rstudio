@@ -1,0 +1,403 @@
+---
+title: "Intro to R workshop"
+author: "Jeremy Buhler and Albina Gibadullina"
+date: "October 26, 2020"
+output: html_document
+---
+
+# Intro to R and RStudio
+
+## Preparing the data
+
+Install R packages
+```{r}
+#install.packages("dplyr")
+#install.packages("gglot2")
+#install.packages("gapminder")
+```
+
+
+Load R packages
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+```
+
+
+Check the description of the "gapminder" dataset
+```{r}
+#?gapminder
+```
+
+
+Import data from the built-in "gapminder" dataset
+```{r}
+countries <- gapminder # create a data frame
+head(countries) #see the first six rows of the dataframe 
+```
+
+
+See the entire dataset
+```{r}
+View(countries)
+```
+
+
+Check the data structure
+```{r}
+str(countries)
+```
+
+
+Count the number of observations (measured by the number of rows) and the number of variables (measured by the number of columns)
+```{r}
+nrow(countries) #To check the number of rows
+ncol(countries) #To check the number of columns
+```
+
+
+Summarize the dataframe
+```{r}
+summary(countries)
+```
+
+Check if the dataframe is complete:
+
+Count the number of observations for each available year
+```{r}
+table(countries$year)
+```
+
+
+Count the number of observations in each continent for each available year 
+```{r}
+table(countries$continent, countries$year)
+```
+
+
+
+
+## Data Manipulation with dplyr
+
+
+### Select function
+
+Select specific columns such as country, year, lifeExp
+```{r}
+select(countries, country, year, lifeExp)
+```
+
+
+Select all columns except for continent and gdpPercap
+```{r}
+select(countries, -continent, -gdpPercap) # use subtraction operator
+```
+
+
+### Filter function
+
+Filter data of countries from 1997 and with Oceania continent
+```{r}
+filter(countries, year==1997, continent=="Oceania")
+```
+
+
+Filter data of countries from 2007 and with gdpPercap greater than $40,000
+```{r}
+filter(countries, year==2007, gdpPercap>40000)
+```
+
+
+Question: What relational operator should you use for greater than and equal to $40,000?
+```{r}
+filter(countries, year==2007, gdpPercap>=40000)
+```
+
+
+Filter observations from year 2002 or year 2007
+```{r}
+filter(countries, year==2002 | year==2007) # Use vertical line for Or condition
+```
+
+
+
+### Arrange function
+
+Arrange countries based on life expectancy (from smallest to largest)
+```{r}
+arrange(countries, lifeExp)
+```
+
+
+Arrange countries based on life expectancy (from smallest to largest), sorted first by year (from earliest year available to most recent)
+```{r}
+arrange(countries, year, lifeExp)
+```
+
+
+Arrange countries based on life expectancy (from largest to smallest)
+```{r}
+arrange(countries, desc(lifeExp))
+```
+
+
+Arrange countries based on life expectancy (from largest to smallest), sorted first by year (from earliest year available to most recent)
+```{r}
+arrange(countries, year, desc(lifeExp))
+```
+
+
+### Summarize function
+
+Available sub-functions:
+
+* Center: mean(), median()
+* Spread: sd(), IQR(), mad()
+* Range: min(), max(), quantile()
+* Position: first(), last(), nth(),
+* Count: n(), n_distinct()
+* Logical: any(), all()
+
+
+Find average value of the lifeExp variable
+```{r}
+summarize(countries, mean_lifeExp=mean(lifeExp))
+```
+
+
+Find range of the lifeExp variable
+```{r}
+summarize(countries, range_lifeExp=max(lifeExp)-min(lifeExp))
+```
+
+
+### Mutate function
+
+Create a new variable called 'GDP' (a product of 'gdpPercap' and 'pop')
+```{r}
+mutate(countries, GDP=gdpPercap*pop)
+```
+
+
+
+
+## Piping with Multiple Functions
+
+What if you want to perform multiple functions in R? Use Pipe operator (%>%) in the dplyr package. It allows you to perform multiple functions without using nested parentheses. 
+
+
+This is how piping looks like:
+```{r}
+# DataFrame%>%
+    #function to execute first %>%
+        #function to execute second %>%
+            #function to execute third
+```
+
+
+Example of Piping:
+
+Finding average life expectancy in each continent in 2007
+
+* Select country, continent, year, lifeExp
+* Filter observations from 2007
+* Split data by continents
+* Summarize the mean life expectancy within each continent
+* Round the average life expectancy to 2 decimal points
+
+
+```{r}
+countries %>%
+  select(country, continent, year, lifeExp) %>% #select country, continent,  year, lifeExp
+    filter(year==2007) %>% #filter observations from 2007
+      group_by(continent) %>% # split data by continents
+          summarise(mean_lifeExp=mean(lifeExp)) %>% #summarize the mean life expectancy within each continent
+            mutate(mean_lifeExp=round(mean_lifeExp,2)) # Use mutate to modify existing variable, round mean weight to 2 decimal points
+```
+
+
+### Exercise #2:
+
+Finding max, min, and average of GDP (in millions USD) of Europen countries in each year for all the years before 2000
+
+* Filter observations of European countries before 2000
+* Use mutate to create a GDP variable (measured in millions USD)
+* Group by year
+* Summarize the min, mean, max, and range of GDP
+
+
+Answers:
+```{r}
+countries %>%
+  filter(continent=="Europe", year<2000) %>%
+    mutate(GDP=gdpPercap*pop/1000000) %>%
+      group_by(year) %>%
+      summarise(min_GDP=min(GDP),
+                mean_GDP=mean(GDP),
+                max_GDP=max(GDP),
+                range=max(GDP)-min(GDP))
+```
+
+
+
+# Data visualization with ggplot
+
+
+## Barchart
+
+Shows the distribution of a categorical variable
+```{r}
+ggplot(data=countries, aes(x=continent, fill=continent))+
+    geom_bar()+
+    labs(title="Counts of observations by continents", x="Continents", y="Number of observations")
+```
+
+
+Modify count to measure the number of countries by dividing by 12
+```{r}
+ggplot(data=countries, aes(x=continent, fill=continent))+
+    geom_bar(aes(y=..count../12))+
+    labs(title="Data distribution by continents", x="Continents", y="Number of countries")
+```
+
+
+
+
+## Histogram and density plots
+
+Visualizes the distribution of one quantitative variable
+```{r}
+ggplot(data=countries, aes(x=lifeExp)) + 
+    geom_histogram(binwidth=4,color="black", fill="lightblue") +
+    labs(title="Histogram of life expenctancy ", x="Life expectancy", y="Number of observations")
+```
+
+
+Alternative to histograms - density plots
+```{r}
+ggplot(data=countries, aes(x=lifeExp)) +
+    geom_density(size=1, fill="pink") +
+    labs(title="Density plot of life expenctancy ", x="Life expectancy")
+```
+
+
+Contrasting lifeExp distributionns of continents using density plots
+```{r}
+ggplot(data=countries, aes(x=lifeExp, fill=continent)) +
+    geom_density(alpha=0.3) + #alpha measures color saturation (0 to 1) 
+    labs(title="Density plot of life expenctancy by continent ", x="Life expectancy")
+```
+
+
+## Boxplots
+
+Boxplots are used to compare distributions of one quantitative variable across multiple categories (a visualization alternative to density plots)
+
+Comparing distribution of lifeExp variable by continent:
+```{r}
+ggplot(data=countries, aes(x=continent, y=lifeExp, fill=continent))+
+    geom_boxplot(outlier.size=1)+
+    labs(title="Boxplots of life expenctancy by continent")
+```
+
+
+
+
+
+## Scatterplots
+
+Scatterplots show the relationship between two quantitative variables
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+ 
+    geom_point()+
+    labs(title="Scatterplot of gdpPercap and lifeExp")
+```
+
+
+Add color to represent different continents
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+
+    geom_point(aes(color=continent))+
+    labs(title="Scatterplot of gdpPercap and lifeExp")
+```
+
+
+Transform the gdpPercap variable using a log10 scale
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+
+    geom_point(aes(color=continent))+
+    scale_x_log10()+
+    labs(title="Scatterplot of gdpPercap(log10) and lifeExp", x="Log 10 of gdpPercap")
+```
+
+
+Change the size of data points to measure the size of population
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+
+    geom_point(aes(color=continent, size=pop))+
+    scale_x_log10()+
+    labs(title="Scatterplot of gdpPercap(log10) and lifeExp", x="Log 10 of gdpPercap")
+```
+
+
+Add a best-fit line to the scatterplot
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+
+    geom_point(aes(color=continent))+
+    geom_smooth(method="lm")+
+    scale_x_log10()+
+    labs(title="Scatterplot of gdpPercap(log10) and lifeExp", x="Log 10 of gdpPercap")
+```
+
+
+Add a best-fit line for each continent
+```{r}
+ggplot(data=countries, aes(x=gdpPercap, y=lifeExp))+
+    geom_smooth(aes(color=continent), method="lm")+
+    scale_x_log10()+
+    labs(title="Best-fit lines between gdpPercap(log10) and lifeExp for each continent", x="Log 10 of gdpPercap")
+```
+
+
+## Piping in ggplot
+
+Visualize changes in annual average life expectancy by continent with points representing the size of populations
+```{r}
+countries %>%
+    group_by(continent, year) %>%
+    summarise(lifeExp=mean(lifeExp), pop=sum(pop)) %>%
+    ggplot(aes(x=year, y=lifeExp, color=continent))+
+    geom_line(size=1)+ 
+    geom_point(aes(size=pop))+
+    labs(title="Annual average life expectancy by continent")
+
+```
+
+
+### Exercise #3
+
+Make a timeplot of `gdpPercap` for countries in Americas with population above 15m (points should represent the size of population)
+
+Hints:
+
+* Use filter function to limit the selection of data to Americas, pop > 15000000
+* Use ggplot, geom_point, and geom_line to make a graph
+
+
+```{r}
+countries %>% 
+  filter(continent=="Americas",pop>15000000) %>%
+  ggplot(aes(x=year, y=gdpPercap, color=country))+
+  geom_point(aes(size=pop))+
+  geom_line()+
+  labs(title="Timeplot of GDP per capita of selected countries in the Americas")
+```
+
+
+## Save the dataframe as a CSV file
+
+Save the dataframe as a csv file
+```{r}
+write.csv(countries, file="countries.csv")
+```
