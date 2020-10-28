@@ -11,6 +11,9 @@ Workshop slides:
 - [HTML format](slides/intro-r-rstudio.slides.html){:target="_blank"} 
 - [PDF format](slides/intro-r-rstudio.pdf){:target="_blank"}
 
+R markdown file:
+- [R markdown file](slides/Intro%20to%20R%20workshop.Rmd){:target="_blank"} 
+
 ## Pre-workshop setup
 To participate fully you will need to install the latest versions of R and RStudio on your computer ahead of time.
 
