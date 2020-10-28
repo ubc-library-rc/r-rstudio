@@ -9,7 +9,7 @@ Do you want to learn about R but don't know where to start? This workshop is for
 
 Workshop slides:
 - [HTML format](slides/intro-r-rstudio.slides.html){:target="_blank"} 
-- [PDF format](slides/intro-r-rstudio-slides.pdf){:target="_blank"}
+- [PDF format](slides/intro-r-rstudio.pdf){:target="_blank"}
 
 ## Pre-workshop setup
 To participate fully you will need to install the latest versions of R and RStudio on your computer ahead of time.
