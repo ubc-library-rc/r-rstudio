@@ -22,8 +22,9 @@ has_toc: false
 | 0:30 | Exercise 1
 | 0:40 | Installing packages and importing data
 | 0:55 | Data management
-| 1:25 | Exercise 2
-| 1:35 | Basic plots
+| 1:20 | Exercise 2
+| 1:25 | Basic plots
+| 1:45 | Exercise 3
 | 1:55 | Saving files and wrap-up
 
 _Actual schedule may vary depending on group needs_
