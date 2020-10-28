@@ -30,8 +30,20 @@ nav_order: 5
 - c==d
 
 # Exercise 2
-Calculate fuel consumption in liters per km for cars with 6 cylinders
+Finding max, min, and average of GDP (in millions USD) of Europen countries in each year for all the years before 2000
 
-- Filter for cars with 6 cylinders
-- Use mutate to convert mpg to liters per 100 km
-- View the mean of liters per 100 km for cars with 6 cylinders
+- Filter observations of European countries before 2000
+- Use mutate to create a GDP variable (measured in millions USD)
+- Group by year
+- Summarize the min, mean, max, and range of GDP
+
+
+# Exercise 3
+
+Make a timeplot of `gdpPercap` for countries in Americas with population above 15m (points should represent the size of population)
+
+Hints:
+
+- Use filter function to limit the selection of data to Americas, pop > 15000000
+- Use ggplot, geom_point, and geom_line to make a graph
+
