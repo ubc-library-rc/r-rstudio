@@ -229,14 +229,7 @@ Finding max, min, and average of GDP (in millions USD) of Europen countries in e
 
 Answers:
 ```{r}
-countries %>%
-  filter(continent=="Europe", year<2000) %>%
-    mutate(GDP=gdpPercap*pop/1000000) %>%
-      group_by(year) %>%
-      summarise(min_GDP=min(GDP),
-                mean_GDP=mean(GDP),
-                max_GDP=max(GDP),
-                range=max(GDP)-min(GDP))
+
 ```
 
 
@@ -371,7 +364,6 @@ countries %>%
     geom_line(size=1)+ 
     geom_point(aes(size=pop))+
     labs(title="Annual average life expectancy by continent")
-
 ```
 
 
@@ -386,12 +378,13 @@ Hints:
 
 
 ```{r}
-countries %>% 
-  filter(continent=="Americas",pop>15000000) %>%
-  ggplot(aes(x=year, y=gdpPercap, color=country))+
-  geom_point(aes(size=pop))+
-  geom_line()+
-  labs(title="Timeplot of GDP per capita of selected countries in the Americas")
+
+```
+
+## Save produced graphs
+
+```{r}
+ggsave("gdp_timeplot.png", plot = gdp_timeplot, device="png", width = 8, height = 9)
 ```
 
 
