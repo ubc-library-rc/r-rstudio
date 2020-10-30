@@ -27,7 +27,7 @@ library(gapminder)
 
 Check the description of the "gapminder" dataset
 ```{r}
-#?gapminder
+?gapminder
 ```
 
 
