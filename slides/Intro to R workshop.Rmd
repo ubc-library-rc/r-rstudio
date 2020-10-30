@@ -384,7 +384,7 @@ Hints:
 ## Save produced graphs
 
 ```{r}
-ggsave("gdp_timeplot.png", plot = gdp_timeplot, device="png", width = 8, height = 9)
+ggsave("gdp_timeplot.png", plot = gdp_timeplot, device="png", width = 8, height = 5)
 ```
 
 
