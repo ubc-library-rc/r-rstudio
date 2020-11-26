@@ -14,7 +14,9 @@ Workshop slides:
 R markdown file:
 - [R markdown file](slides/Intro%20to%20R%20workshop.Rmd){:target="_blank"}
 - [R markdown file with answers](slides/Intro%20to%20R%20workshop%20with%20answers.Rmd){:target="_blank"}
-- [R markdown file extended version](slides/Intro%20to%20R%20workshop%20(extended%20version).Rmd){:target="_blank"}
+
+Optional files:
+- [R markdown file (extended version)](slides/Intro%20to%20R%20workshop%20(extended%20version).Rmd){:target="_blank"}
 
 ## Pre-workshop setup
 To participate fully you will need to install the latest versions of R and RStudio on your computer ahead of time.
