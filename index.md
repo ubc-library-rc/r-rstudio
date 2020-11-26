@@ -8,11 +8,13 @@ nav_order: 1
 Do you want to learn about R but don't know where to start? This workshop is for you! **R** is a popular free software program with many applications in both the humanities and sciences. **RStudio** is a set of integrated tools designed to help you be more productive with R. This introductory level workshop introduces participants to R concepts, packages, and basic syntax using the RStudio environment.
 
 Workshop slides:
-- [HTML format](slides/intro-r-rstudio.slides.html){:target="_blank"} 
+- [HTML format](slides/intro-r-rstudio.html){:target="_blank"} 
 - [PDF format](slides/intro-r-rstudio.pdf){:target="_blank"}
 
 R markdown file:
-- [R markdown file](slides/Intro%20to%20R%20workshop.Rmd){:target="_blank"} 
+- [R markdown file](slides/Intro%20to%20R%20workshop.Rmd){:target="_blank"}
+- [R markdown file with answers](slides/Intro%20to%20R%20workshop with answers.Rmd){:target="_blank"}
+- [R markdown file extended version](slides/Intro%20to%20R%20workshop (extended version).Rmd){:target="_blank"}
 
 ## Pre-workshop setup
 To participate fully you will need to install the latest versions of R and RStudio on your computer ahead of time.
